@@ -6,20 +6,20 @@ const EditCourseOffer = () => {
   const [courseNames, setCourseNames] = useState([]);
   const [newCourseNames, setNewCourseNames] = useState([]);
   const [error, setError] = useState(null);
-  const { batchNo } = useParams();
+  const { semesterName } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchCourseOffer();
-  }, []);
+  }, [semesterName]); // Add semesterName as a dependency
 
   const fetchCourseOffer = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/course-offers/${batchNo}`);
+      const response = await axios.get(`http://localhost:5000/api/course-offers/${semesterName}`);
       setCourseNames(response.data.courseNames);
       setNewCourseNames(response.data.courseNames);
     } catch (error) {
-      console.error('Error fetching course offer:', error);
+      console.error('Error fetching course offers:', error);
       setError('Failed to fetch course offer');
     }
   };
@@ -33,7 +33,7 @@ const EditCourseOffer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/course-offers/${batchNo}`, {
+      await axios.put(`http://localhost:5000/api/course-offers/${semesterName}`, {
         courseNames: newCourseNames,
       });
       navigate('/course-offers');
@@ -63,10 +63,7 @@ const EditCourseOffer = () => {
             </div>
           ))}
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Update
         </button>
       </form>

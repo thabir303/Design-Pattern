@@ -1,9 +1,12 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import BatchList from './BatchList';
 import BatchForm from './BatchForm';
 import EditBatchForm from './EditBatchForm';
 
 const Batch = () => {
+  const location = useLocation();
+  const isBatchesPath = location.pathname === '/batches';
+
   return (
     <div>
       <nav>
@@ -11,13 +14,16 @@ const Batch = () => {
           <li>
             <Link to="/batches"></Link>
           </li>
-          <li>
-            <Link to="/class-slots">
-                <button>Class Slots</button> <br /></Link> {/* Add the new link */}
-          </li>
+          {isBatchesPath && (
+            <li>
+              <Link to="/class-slots">
+                <button></button>
+                <br />
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
-
       <Routes>
         <Route path="/" element={<BatchList />} />
         <Route path="/new" element={<BatchForm />} />

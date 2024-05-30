@@ -47,7 +47,7 @@ const EditBatchForm = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-4">Edit Batch</h1>
+     <h1 className="text-2xl font-bold mb-4 flex justify-center items-center h-full">Edit Batch</h1>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="mb-4">
           <label htmlFor="coordinatorId" className="block font-bold mb-2">
